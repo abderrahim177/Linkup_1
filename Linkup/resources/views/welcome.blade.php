@@ -28,9 +28,9 @@
 
         <div class="flex items-start justify-between">
             <div class="flex items-center gap-3">
-                <img src="https://ui-avatars.com/api/?name=Youssef+Alami&background=4f46e5&color=fff"
-                    alt="Youssef Alami"
-                    class="w-11 h-11 rounded-full border border-gray-200 object-cover">
+                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                    alt="Avatar"
+                    class="w-14 h-14 rounded-full border border-gray-200 object-cover">
                 <div>
                     <h4 class="font-semibold text-gray-900 text-sm hover:text-indigo-600 hover:underline cursor-pointer transition-colors">
                         Youssef Alami
@@ -64,13 +64,10 @@
                 <i class="fa-solid fa-share text-base"></i> Partager
             </button>
         </div>
-
     </div>
-
     <div class="bg-white border border-gray-250 rounded-xl p-8 text-center text-gray-500">
         <i class="fa-regular fa-folder-open text-4xl mb-3 text-gray-300"></i>
         <p class="text-sm">Aucun post disponible pour le moment. Soyez le premier à publier !</p>
     </div>
-
 </div>
 @endsection

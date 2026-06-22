@@ -54,7 +54,9 @@
                 <div class="h-8 w-[1px] bg-gray-200 mx-2 hidden sm:block"></div>
 
                 <div class="flex items-center gap-2 cursor-pointer group">
-                    <img src="https://ui-avatars.com/api/?name=Youssef+Alami&background=6366f1&color=fff" alt="Profile" class="w-8 h-8 rounded-full ring-2 ring-transparent group-hover:ring-indigo-600 transition-all">
+                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                    alt="Avatar"
+                    class="w-10 h-10 rounded-full border border-gray-200 object-cover">                    
                     <i class="fa-solid fa-chevron-down text-xs hidden sm:block group-hover:text-gray-900 transition-colors"></i>
                 </div>
             </nav>
@@ -103,14 +105,10 @@
                     <span>Éléments enregistrés</span>
                 </div>
             </aside>
-
             <div class="col-span-1 lg:col-span-3 grid grid-cols-1 gap-6">
                 @yield('content')
             </div>
-
         </div>
     </main>
-
 </body>
-
 </html>
