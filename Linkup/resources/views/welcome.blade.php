@@ -3,8 +3,9 @@
 @section('content')
 <div class="bg-white border border-gray-250 rounded-xl p-4 shadow-sm flex flex-col gap-3">
     <div class="flex items-center gap-3">
-        <img src="https://ui-avatars.com/api/?name=Youssef+Alami&background=6366f1&color=fff" alt="Avatar" class="w-10 h-10 rounded-full">
-        <button class="flex-1 bg-gray-100 border border-gray-200 hover:bg-gray-150 text-left text-gray-500 text-sm py-2.5 px-4 rounded-full transition-colors cursor-pointer font-medium">
+        <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            alt="Avatar"
+            class="w-13 h-13 rounded-full mx-auto border-4 border-white shadow-sm object-cover transition-transform duration-300 group-hover:scale-105"> <button class="flex-1 bg-gray-100 border border-gray-200 hover:bg-gray-150 text-left text-gray-500 text-sm py-2.5 px-4 rounded-full transition-colors cursor-pointer font-medium">
             Commencer un post, partager une idée...
         </button>
     </div>
@@ -48,12 +49,10 @@
                 </div>
             </div>
         </div>
-
-        <div class="text-sm text-gray-800 leading-relaxed whitespace-pre-wrap py-2 border-b border-gray-100">            Ravi de partager avec vous le lancement de notre nouvelle application LinkUp !
-            Il s'agit d'une plateforme moderne développée avec Laravel, mettant en œuvre 
-            une architecture robuste et des relations Eloquent optimisées pour gérer efficacement le fil d'actualité.
+        <div class="text-sm text-gray-750 leading-relaxed whitespace-pre-line py-2.5 border-b border-gray-150">Ravi de partager avec vous le lancement de notre nouvelle application LinkUp ! 
+            Il s'agit d'une plateforme moderne développée avec Laravel, mettant en œuvre une architecture robuste et des relations Eloquent optimisées pour gérer efficacement le fil d'actualité.
             Un grand merci à toute l'équipe pour les efforts fournis durant cette première semaine de développement.
-            Stay tuned pour la suite !</div>
+            Stay tuned pour la suite ! </div>
         <div class="flex items-center justify-between pt-2 text-xs font-semibold text-gray-500">
             <button class="flex items-center justify-center gap-2 hover:bg-gray-50 flex-1 py-2.5 rounded-lg transition-colors cursor-pointer hover:text-indigo-600">
                 <i class="fa-regular fa-thumbs-up text-base"></i> J'aime

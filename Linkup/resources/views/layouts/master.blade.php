@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +11,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Poppins', sans-serif; }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
     </style>
 </head>
+
 <body class="bg-gray-50 text-gray-800 min-h-screen font-[Poppins]">
 
     <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm backdrop-blur-md bg-opacity-95">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            
+
             <div class="flex items-center gap-4 flex-1 max-w-md">
                 <a href="/feed" class="text-indigo-600 font-bold text-2xl tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-circle-nodes"></i> Link<span class="text-gray-900">Up</span>
@@ -46,9 +50,9 @@
                     <i class="fa-solid fa-comment-dots text-xl"></i>
                     <span class="text-[10px] font-medium mt-1 hidden sm:block">Messagerie</span>
                 </a>
-                
+
                 <div class="h-8 w-[1px] bg-gray-200 mx-2 hidden sm:block"></div>
-                
+
                 <div class="flex items-center gap-2 cursor-pointer group">
                     <img src="https://ui-avatars.com/api/?name=Youssef+Alami&background=6366f1&color=fff" alt="Profile" class="w-8 h-8 rounded-full ring-2 ring-transparent group-hover:ring-indigo-600 transition-all">
                     <i class="fa-solid fa-chevron-down text-xs hidden sm:block group-hover:text-gray-900 transition-colors"></i>
@@ -59,30 +63,44 @@
 
     <main class="max-w-6xl mx-auto px-4 py-8">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
-            
-            <aside class="bg-white border border-gray-250 rounded-xl overflow-hidden shadow-sm sticky top-24">
-                <div class="h-16 bg-gradient-to-r from-indigo-600 to-purple-600"></div>
-                
-                <div class="px-4 pb-4 text-center -mt-8 relative">
-                    <img src="https://ui-avatars.com/api/?name=Youssef+Alami&background=6366f1&color=fff" alt="Avatar" class="w-16 h-16 rounded-full mx-auto border-4 border-white shadow-sm mb-3">
-                    <h3 class="font-semibold text-gray-900 text-base hover:underline cursor-pointer">Youssef Alami</h3>
-                    <p class="text-xs text-indigo-600 font-medium mt-0.5">Développeur Fullstack</p>
-                    <p class="text-[11px] text-gray-500 mt-1"><i class="fa-solid fa-building text-[10px] mr-1"></i> Freelance / Étudiant</p>
+
+            <aside class="bg-white border border-gray-150 rounded-2xl overflow-hidden shadow-sm sticky top-24 transition-all duration-300 hover:shadow-md group">
+                <div class="h-20 bg-black opacity-90 relative"></div>
+
+                <div class="px-5 pb-5 text-center -mt-10 relative border-b border-gray-100">
+                    <div class="inline-block relative">
+                        <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                            alt="Avatar"
+                            class="w-20 h-20 rounded-full mx-auto border-4 border-white shadow-sm object-cover transition-transform duration-300 group-hover:scale-105">
+                        <span class="absolute bottom-1 right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full" title="En ligne"></span>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-900 text-base mt-3 hover:text-indigo-600 transition-colors cursor-pointer flex items-center justify-center gap-1">
+                        Youssef Alami
+                        <i class="fa-solid fa-circle-check text-indigo-500 text-xs" title="Profil Vérifié"></i>
+                    </h3>
+                    <p class="text-xs text-indigo-600 font-semibold tracking-wide uppercase mt-0.5">Développeur Fullstack</p>
+
+                    <div class="flex items-center justify-center gap-2 mt-3 text-[11px] text-gray-500 bg-gray-50 py-1.5 px-3 rounded-full inline-flex">
+                        <i class="fa-solid fa-building text-gray-400"></i>
+                        <span class="font-medium">Freelance / Étudiant</span>
+                    </div>
                 </div>
 
-                <div class="border-t border-gray-100 px-4 py-3 text-xs text-gray-500 flex flex-col gap-2">
-                    <div class="flex justify-between items-center">
-                        <span>Vues du profil</span>
-                        <span class="text-indigo-600 font-semibold">142</span>
+                <div class="px-5 py-4 text-xs flex flex-col gap-3 border-b border-gray-100 bg-gray-50/30">
+                    <div class="flex justify-between items-center group/item cursor-pointer">
+                        <span class="text-gray-500 group-hover/item:text-gray-900 transition-colors">Vues du profil</span>
+                        <span class="bg-indigo-50 text-indigo-600 font-bold px-2 py-0.5 rounded-md text-[11px]">142</span>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <span>Impressions du post</span>
-                        <span class="text-indigo-600 font-semibold">1,054</span>
+                    <div class="flex justify-between items-center group/item cursor-pointer">
+                        <span class="text-gray-500 group-hover/item:text-gray-900 transition-colors">Impressions du post</span>
+                        <span class="bg-indigo-50 text-indigo-600 font-bold px-2 py-0.5 rounded-md text-[11px]">1,054</span>
                     </div>
                 </div>
 
-                <div class="border-t border-gray-100 px-4 py-3 text-xs font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer text-center">
-                    <i class="fa-solid fa-bookmark mr-1.5"></i> Éléments enregistrés
+                <div class="px-5 py-3.5 text-xs font-semibold text-gray-600 hover:text-indigo-600 hover:bg-indigo-50/50 transition-all duration-200 cursor-pointer flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-bookmark text-sm text-gray-400 group-hover:text-indigo-600"></i>
+                    <span>Éléments enregistrés</span>
                 </div>
             </aside>
 
@@ -94,4 +112,5 @@
     </main>
 
 </body>
+
 </html>
