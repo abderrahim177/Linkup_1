@@ -65,9 +65,61 @@
             </button>
         </div>
     </div>
-    <div class="bg-white border border-gray-250 rounded-xl p-8 text-center text-gray-500">
-        <i class="fa-regular fa-folder-open text-4xl mb-3 text-gray-300"></i>
-        <p class="text-sm">Aucun post disponible pour le moment. Soyez le premier à publier !</p>
+    <div class="max-w-5xl mx-auto px-4 py-10 font-sans antialiased bg-gray-50/50 min-h-screen">
+    
+    <div class="mb-10 text-center md:text-left">
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">Fil d'actualités</h2>
+        <p class="text-gray-500 text-sm">Découvrez les dernières publications de notre communauté.</p>
     </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @forelse($posts as $post)
+            <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-blue-50 text-blue-600 text-[11px] font-bold tracking-wide uppercase px-2.5 py-1 rounded-md">
+                            Article
+                        </span>
+                        <span class="text-xs text-gray-400">
+                            {{ $post->created_at ? $post->created_at->format('d M Y') : 'Récemment' }}
+                        </span>
+                    </div>
+
+                    <p class="text-gray-700 text-sm font-medium leading-relaxed mb-6 line-clamp-4">
+                        {{ $post->content }}
+                    </p>
+                </div>
+
+                <div class="border-t border-gray-50 pt-4 flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                            {{ $post->user ? strtoupper(substr($post->user->name, 0, 1)) : 'A' }}
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-800">
+                                {{ $post->user->name ?? 'Auteur anonyme' }}
+                            </h4>
+                            <p class="text-[10px] text-gray-400">
+                                {{ $post->user->headline ?? 'Membre' }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <button class="text-gray-400 hover:text-blue-600 transition-colors">
+                        <i class="fa-regular fa-bookmark text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        @empty
+            <div class="col-span-1 md:col-span-2 lg:col-span-3 bg-white border border-gray-100 rounded-2xl p-12 text-center text-gray-500 max-w-md mx-auto w-full shadow-sm">
+                <div class="w-14 h-14 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-regular fa-folder-open text-2xl text-gray-400"></i>
+                </div>
+                <h4 class="text-base font-bold text-gray-800 mb-1">Aucun post disponible</h4>
+                <p class="text-xs text-gray-400 mb-5">La base de données ne contient aucun article pour le moment.</p>
+            </div>
+        @endforelse
+    </div>
+</div>
 </div>
 @endsection
