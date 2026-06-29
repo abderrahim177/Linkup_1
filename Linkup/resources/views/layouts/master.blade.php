@@ -19,20 +19,23 @@
 
 <body class="bg-[#f3f4f6] text-gray-800 min-h-screen antialiased">
 
-    <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+   <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
+    @if(Route::has('login'))
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
 
-            <div class="flex items-center gap-4 flex-1 max-w-md">
-                <a href="/feed" class="text-blue-600 font-bold text-2xl tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-circle-nodes"></i> Link<span class="text-gray-900">Up</span>
-                </a>
-                <div class="relative w-full hidden md:block">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                    <input type="text" placeholder="Rechercher..." class="w-full bg-[#f3f4f6] text-sm text-gray-800 pl-10 pr-4 py-2 rounded-lg border border-transparent focus:border-blue-500 focus:bg-white focus:outline-none transition-all">
-                </div>
+        <div class="flex items-center gap-4 flex-1 max-w-md">
+            <a href="/feed" class="text-blue-600 font-bold text-2xl tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-circle-nodes"></i> Link<span class="text-gray-900">Up</span>
+            </a>
+            <div class="relative w-full hidden md:block">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                <input type="text" placeholder="Rechercher..." class="w-full bg-[#f3f4f6] text-sm text-gray-800 pl-10 pr-4 py-2 rounded-lg border border-transparent focus:border-blue-500 focus:bg-white focus:outline-none transition-all">
             </div>
+        </div>
 
-            <nav class="flex items-center gap-2 sm:gap-6 text-gray-500">
+        <nav class="flex items-center gap-2 sm:gap-6 text-gray-500">
+            
+            @auth
                 <a href="/feed" class="flex flex-col items-center justify-center text-blue-600 transition-colors py-1 px-2">
                     <i class="fa-solid fa-house text-xl"></i>
                     <span class="text-[10px] font-medium mt-1 hidden sm:block">Accueil</span>
@@ -59,9 +62,23 @@
                 <a href="/logout" class="text-gray-400 hover:text-red-500 transition-colors p-2" title="Déconnexion">
                     <i class="fa-solid fa-power-off text-lg"></i>
                 </a>
-            </nav>
-        </div>
-    </header>
+            @endauth
+
+            @guest
+                <a href="{{ route('login') }}" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors px-3 py-2">
+                    Connexion
+                </a>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors px-4 py-2 rounded-lg shadow-sm">
+                        Inscription
+                    </a>
+                @endif
+            @endguest
+
+        </nav>
+    </div>
+    @endif
+</header>
 
     <main class="max-w-6xl mx-auto px-4 py-6">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">

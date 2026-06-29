@@ -76,7 +76,7 @@
         <!-- Footer -->
         <div class="mt-6 pt-5 border-t border-gray-100 text-center text-sm text-gray-500">
             Déjà inscrit ? 
-            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors ml-1">Se connecter</a>
+            <a href="{{route('login')}}" class="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors ml-1">Se connecter</a>
         </div>
     </div>
 </div>
