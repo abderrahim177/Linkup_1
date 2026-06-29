@@ -30,7 +30,7 @@
                 <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">Nom complet</label>
                 <div class="relative">
                     <i class="fa-solid fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                    <input type="text" required placeholder="Youssef Alami" 
+                    <input name="name" type="text" required placeholder="Youssef Alami" 
                         class="w-full bg-gray-50/50 text-sm text-gray-800 pl-10 pr-4 py-2.5 rounded-xl border border-gray-200/80 focus:border-indigo-500 focus:bg-white focus:outline-none transition-all duration-200">
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">Headline (Titre professionnel)</label>
                 <div class="relative">
                     <i class="fa-solid fa-briefcase absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                    <input type="text" required placeholder="Ex: Développeur Full-Stack / Admin Système" 
+                    <input name="headline" type="text" required placeholder="Ex: Développeur Full-Stack / Admin Système" 
                         class="w-full bg-gray-50/50 text-sm text-gray-800 pl-10 pr-4 py-2.5 rounded-xl border border-gray-200/80 focus:border-indigo-500 focus:bg-white focus:outline-none transition-all duration-200">
                 </div>
                 <p class="text-[11px] text-gray-400 mt-1">Sera affiché en dessous de votre nom sur votre profil.</p>
@@ -51,7 +51,7 @@
                 <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">Adresse Email</label>
                 <div class="relative">
                     <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                    <input type="email" required placeholder="youssef@exemple.com" 
+                    <input name="email" type="email" required placeholder="youssef@exemple.com" 
                         class="w-full bg-gray-50/50 text-sm text-gray-800 pl-10 pr-4 py-2.5 rounded-xl border border-gray-200/80 focus:border-indigo-500 focus:bg-white focus:outline-none transition-all duration-200">
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">Mot de passe</label>
                 <div class="relative">
                     <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                    <input type="password" required placeholder="••••••••" 
+                    <input name="password" type="password" required placeholder="••••••••" 
                         class="w-full bg-gray-50/50 text-sm text-gray-800 pl-10 pr-4 py-2.5 rounded-xl border border-gray-200/80 focus:border-indigo-500 focus:bg-white focus:outline-none transition-all duration-200">
                 </div>
             </div>

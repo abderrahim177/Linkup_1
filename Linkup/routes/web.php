@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
@@ -9,6 +11,5 @@ Route::resource('posts' , PostController::class);
 Route::get('/login' , function(){
     return view('auth.login');
 });
-Route::get('/register' , function(){
-   return view('auth.register');
-});
+Route::get('/register' , [AuthController::class , "register"])->name('register');
+Route::get('login' , [AuthController::class , "login"])->name('ligin');
