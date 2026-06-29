@@ -22,6 +22,7 @@
     <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm backdrop-blur-md bg-opacity-95">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
 
+            <!-- LOGO & SEARCH -->
             <div class="flex items-center gap-4 flex-1 max-w-md">
                 <a href="/feed" class="text-indigo-600 font-bold text-2xl tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-circle-nodes"></i> Link<span class="text-gray-900">Up</span>
@@ -32,6 +33,7 @@
                 </div>
             </div>
 
+            <!-- NAVIGATION -->
             <nav class="flex items-center gap-2 sm:gap-6 text-gray-500">
                 <a href="/feed" class="flex flex-col items-center justify-center text-indigo-600 hover:text-indigo-600 transition-colors py-1 px-2 rounded-md">
                     <i class="fa-solid fa-house text-xl"></i>
@@ -51,14 +53,21 @@
                     <span class="text-[10px] font-medium mt-1 hidden sm:block">Messagerie</span>
                 </a>
 
-                <div class="h-8 w-[1px] bg-gray-200 mx-2 hidden sm:block"></div>
+                <div class="h-8 w-[1px] bg-gray-200 mx-1 hidden sm:block"></div>
 
-                <div class="flex items-center gap-2 cursor-pointer group">
-                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                    alt="Avatar"
-                    class="w-10 h-10 rounded-full border border-gray-200 object-cover">                    
+                <div class="flex items-center gap-2 cursor-pointer group py-1 px-2 rounded-md hover:bg-gray-50 transition-colors">
+                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                        alt="Avatar"
+                        class="w-9 h-9 rounded-full border border-gray-200 object-cover">
                     <i class="fa-solid fa-chevron-down text-xs hidden sm:block group-hover:text-gray-900 transition-colors"></i>
                 </div>
+
+                <div class="h-6 w-[1px] bg-gray-200 hidden sm:block"></div>
+
+                <a href="/logout" class="flex items-center justify-center gap-2 text-red-500 hover:text-red-600 hover:bg-red-50 p-2 rounded-lg transition-all duration-200" title="Déconnexion">
+                    <span class="text-[10px] font-semibold mt-1 hidden sm:block">logout</span>
+                    <i class="fa-solid fa-power-off text-xl"></i>
+                </a>
             </nav>
         </div>
     </header>
@@ -111,4 +120,5 @@
         </div>
     </main>
 </body>
+
 </html>
