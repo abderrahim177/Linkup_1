@@ -13,3 +13,4 @@ Route::get('/login' , function(){
 });
 Route::get('/register' , [AuthController::class , "register"])->name('register');
 Route::get('login' , [AuthController::class , "login"])->name('login');
+Route::post('save-user' , [AuthController::class , "save"])->name('save.user');

@@ -1,25 +1,26 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+<div x-data="{ openModal: false }" class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
     
     <div class="lg:col-span-2 space-y-4">
         
         <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm space-y-3">
             <div class="flex items-center gap-3">
                 <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Avatar" class="w-9 h-9 rounded-full object-cover"> 
-                <button class="flex-1 bg-gray-50 border border-gray-200 hover:bg-gray-100 text-left text-gray-400 text-sm py-2 px-4 rounded-full transition-colors cursor-pointer">
+                
+                <button @click="openModal = true" class="flex-1 bg-gray-50 border border-gray-200 hover:bg-gray-100 text-left text-gray-400 text-sm py-2 px-4 rounded-full transition-colors cursor-pointer focus:outline-none">
                     Start a post...
                 </button>
             </div>
             <div class="flex items-center justify-between border-t border-gray-100 pt-2 text-xs font-semibold text-gray-500">
-                <button class="flex items-center gap-2 hover:bg-gray-50 py-2 px-3 rounded-lg transition-colors cursor-pointer text-blue-500">
+                <button @click="openModal = true" class="flex items-center gap-2 hover:bg-gray-50 py-2 px-3 rounded-lg transition-colors cursor-pointer text-blue-500">
                     <i class="fa-regular fa-video text-base"></i> Video
                 </button>
-                <button class="flex items-center gap-2 hover:bg-gray-50 py-2 px-3 rounded-lg transition-colors cursor-pointer text-amber-500">
+                <button @click="openModal = true" class="flex items-center gap-2 hover:bg-gray-50 py-2 px-3 rounded-lg transition-colors cursor-pointer text-amber-500">
                     <i class="fa-regular fa-image text-base"></i> Photo
                 </button>
-                <button class="flex items-center gap-2 hover:bg-gray-50 py-2 px-3 rounded-lg transition-colors cursor-pointer text-indigo-500">
+                <button @click="openModal = true" class="flex items-center gap-2 hover:bg-gray-50 py-2 px-3 rounded-lg transition-colors cursor-pointer text-indigo-500">
                     <i class="fa-regular fa-pen-to-square text-base"></i> Write an article
                 </button>
             </div>
@@ -34,7 +35,6 @@
 
         @forelse($posts as $post)
             <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 space-y-3 transition-all hover:shadow-sm">
-                
                 <div class="flex items-start justify-between">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold shadow-sm">
@@ -146,6 +146,70 @@
             <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2 px-4 rounded-full transition-colors cursor-pointer shrink-0">
                 See who's hiring
             </button>
+        </div>
+    </div>
+
+    <div x-show="openModal" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 flex items-start sm:items-center justify-center bg-gray-900/60 backdrop-blur-md p-4"
+         style="display: none;">
+        
+        <div @click.away="openModal = false" 
+             x-transition:enter="transition ease-out duration-300 transform"
+             x-transition:enter-start="opacity-0 translate-y-8 sm:scale-95"
+             x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+             class="bg-white rounded-xl max-w-xl w-full shadow-2xl overflow-hidden border border-gray-100 mt-10 sm:mt-0">
+            
+            <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+                <div class="flex items-center gap-3">
+                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Avatar" class="w-11 h-11 rounded-full object-cover">
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-950 flex items-center gap-1.5">
+                            {{ Auth::user()->name ?? 'Auteur' }}
+                        </h3>
+                        <p class="text-xs text-gray-500 font-medium">Post to Anyone</p>
+                    </div>
+                </div>
+                <button @click="openModal = false" class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition p-1 cursor-pointer">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form action="{{ route('posts.store') }}" method="POST">
+                @csrf
+                
+                <div class="px-6 py-4">
+                    <textarea name="content" rows="6" required 
+                        placeholder="What do you want to talk about?" 
+                        class="w-full text-base text-gray-800 placeholder-gray-400 border-none resize-none focus:outline-none focus:ring-0 bg-transparent"></textarea>
+                </div>
+
+                <div class="px-6 py-2 flex items-center gap-2 text-gray-500">
+                    <button type="button" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-100 hover:text-blue-600 transition cursor-pointer" title="Add a photo">
+                        <i class="fa-regular fa-image text-lg"></i>
+                    </button>
+                    <button type="button" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-100 hover:text-blue-600 transition cursor-pointer" title="Add a video">
+                        <i class="fa-regular fa-video text-lg"></i>
+                    </button>
+                    <button type="button" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-100 hover:text-blue-600 transition cursor-pointer" title="Add a document">
+                        <i class="fa-regular fa-file-lines text-lg"></i>
+                    </button>
+                </div>
+
+                <div class="flex justify-end items-center gap-3 px-6 py-3 border-t border-gray-100 bg-gray-50/50">
+                    <button type="button" @click="openModal = false" class="px-4 py-1.5 text-sm font-semibold text-gray-500 hover:bg-gray-100 rounded-full transition cursor-pointer">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-5 py-1.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full shadow-sm transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+                        Post
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 

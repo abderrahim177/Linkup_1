@@ -24,13 +24,13 @@
             <p class="text-sm text-gray-500 mt-1.5">Accédez à votre tableau de bord LinkUp</p>
         </div>
 
-        <form action="#" method="POST" class="space-y-5">
+        <form action="{{route('save.user')}}" method="POST" class="space-y-5">
             <!-- Email -->
             <div>
                 <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Adresse Email</label>
                 <div class="relative">
                     <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                    <input type="email" required placeholder="nom@exemple.com" 
+                    <input type="email"  placeholder="nom@exemple.com" 
                         class="w-full bg-gray-50/50 text-sm text-gray-800 pl-10 pr-4 py-3 rounded-xl border border-gray-200/80 focus:border-indigo-500 focus:bg-white focus:outline-none transition-all duration-200 shadow-inner shadow-sm">
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="relative">
                     <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                    <input type="password" required placeholder="••••••••" 
+                    <input type="password"  placeholder="••••••••" 
                         class="w-full bg-gray-50/50 text-sm text-gray-800 pl-10 pr-4 py-3 rounded-xl border border-gray-200/80 focus:border-indigo-500 focus:bg-white focus:outline-none transition-all duration-200">
                 </div>
             </div>
