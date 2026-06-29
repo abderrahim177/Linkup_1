@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\User;
 /**
  * @extends Factory<Post>
  */
@@ -19,8 +19,7 @@ class PostFactory extends Factory
     {
        return [
         'content' => $this->faker->paragraph(3), 
-        
-        'user_id' => \App\Models\User::factory(), 
+        'user_id' => User::factory(), 
         ];
     }
 }
