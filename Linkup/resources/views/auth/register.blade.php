@@ -29,7 +29,6 @@
             <form action="{{route('save.user')}}" method="POST" class="space-y-4">
                 <!-- Nom complet -->
                 @csrf
-                @method('POST')
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">Nom complet</label>
                     <div class="relative">

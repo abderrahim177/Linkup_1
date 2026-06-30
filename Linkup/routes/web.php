@@ -5,12 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
 Route::get('/', [PostController::class, 'index']);
-
+Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 Route::resource('posts' , PostController::class);
  
 Route::get('/login' , function(){
     return view('auth.login');
 });
 Route::get('/register' , [AuthController::class , "register"])->name('register');
-Route::get('login' , [AuthController::class , "login"])->name('login');
-Route::post('save-user' , [AuthController::class , "save"])->name('save.user');
+Route::post('/register' , [AuthController::class , "save"])->name('save.user');
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'check'])->name('check_user');

@@ -24,15 +24,22 @@
             <p class="text-sm text-gray-500 mt-1.5">Accédez à votre tableau de bord LinkUp</p>
         </div>
 
-        <form action="{{route('save.user')}}" method="POST" class="space-y-5">
+        <form action="{{ route('check_user') }}" method="POST" class="space-y-5">
             <!-- Email -->
+             @csrf
             <div>
                 <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Adresse Email</label>
                 <div class="relative">
                     <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                    <input type="email"  placeholder="nom@exemple.com" 
-                        class="w-full bg-gray-50/50 text-sm text-gray-800 pl-10 pr-4 py-3 rounded-xl border border-gray-200/80 focus:border-indigo-500 focus:bg-white focus:outline-none transition-all duration-200 shadow-inner shadow-sm">
+                    <input type="email" name="email" value="{{old('email')}}"  placeholder="nom@exemple.com" 
+                    class="w-full bg-gray-50/50 text-sm text-gray-800 pl-10 pr-4 py-3 rounded-xl border border-gray-200/80 focus:border-indigo-500 focus:bg-white focus:outline-none transition-all duration-200 shadow-inner shadow-sm">
                 </div>
+                @error('email')
+                    <div class="flex items-center gap-1.5 mt-1.5 text-xs text-red-600 font-medium animate-fade-in">
+                        <i class="fa-solid fa-circle-exclamation text-[11px]"></i>
+                        <span>{{ $message }}</span>
+                    </div>
+                @enderror
             </div>
 
             <!-- Password -->
@@ -43,9 +50,15 @@
                 </div>
                 <div class="relative">
                     <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                    <input type="password"  placeholder="••••••••" 
+                    <input type="password" name="password" value="{{old('password')}}"  placeholder="••••••••" 
                         class="w-full bg-gray-50/50 text-sm text-gray-800 pl-10 pr-4 py-3 rounded-xl border border-gray-200/80 focus:border-indigo-500 focus:bg-white focus:outline-none transition-all duration-200">
                 </div>
+                @error('password')
+                    <div class="flex items-center gap-1.5 mt-1.5 text-xs text-red-600 font-medium animate-fade-in">
+                        <i class="fa-solid fa-circle-exclamation text-[11px]"></i>
+                        <span>{{ $message }}</span>
+                    </div>
+                @enderror
             </div>
 
             <!-- Se souvenir de moi -->

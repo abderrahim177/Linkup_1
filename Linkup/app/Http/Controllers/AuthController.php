@@ -3,27 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\registerRequest;
+use App\Http\Requests\loginRequest;
+use App\Models\User; 
+use Illuminate\Support\Facades\Hash;
+use App\Models\Post;
 class AuthController extends Controller
 {
+    public function dashboard(){
+        $posts = Post::with('user')->get();
+        return view('welcome', compact('posts'));
+    }
     public function register(){
         return view("auth.register");
     }
     public function login(){
         return view("auth.login");
     }
-   public function save(Request $request) {
-    $validate = $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|max:255|unique:users',
-        'password' => 'required|string|min:8',
-        'headline' => 'required|string',
-    ]);
-}
-    public function check(Request $request){
-        $validate = $request->validate([
-            'password' => 'required',
-            'email' => 'required|email',
+   public function save(registerRequest $request) {
+        $credentials = $request->validated();
+        $credentials['password'] = Hash::make($credentials['password']);
+        $user = User::create($credentials);
+        return redirect()->route('dashboard')->with('success', 'Account created successfully! You can now log in.');
+    }
+
+    public function check(loginRequest $request){
+        $credentials = $request->validated();
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }
+
+        return back()->withErrors([
+            'email' => 'votre information et incorrect !',
         ]);
     }
 }
