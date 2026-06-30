@@ -33,8 +33,9 @@
             </button>
         </div>
 
+
         @forelse($posts as $post)
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 space-y-3 transition-all hover:shadow-sm">
+        <div x-data="{ open: false }" class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 space-y-3 transition-all hover:shadow-sm relative">
             <div class="flex items-start justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold shadow-sm">
@@ -52,9 +53,41 @@
                         </p>
                     </div>
                 </div>
-                <button class="text-blue-600 hover:text-blue-700 font-semibold text-xs flex items-center gap-1 cursor-pointer">
-                    <i class="fa-solid fa-plus text-[10px]"></i> Follow
-                </button>
+
+                <div class="flex items-center gap-3 relative">
+                    <button class="text-blue-600 hover:text-blue-700 font-semibold text-xs flex items-center gap-1 cursor-pointer">
+                        <i class="fa-solid fa-plus text-[10px]"></i> Follow
+                    </button>
+
+                    <button @click="open = !open" @click.away="open = false" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-full hover:bg-gray-50 cursor-pointer transition-colors">
+                        <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
+                    </button>
+
+                    <div x-show="open"
+                        x-transition:enter="transition ease-out duration-100"
+                        x-transition:enter-start="opacity-0 scale-95"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 scale-95"
+                        class="absolute right-0 top-8 w-40 bg-white border border-gray-100 rounded-xl shadow-xl z-50 py-1.5 overflow-hidden"
+                        style="display: none;">
+
+                        <a href="{{ route('posts.edit', $post->id) }}" class="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                            <i class="fa-regular fa-pen-to-square text-sm text-gray-400 group-hover:text-blue-600"></i> Update Post
+                        </a>
+
+                        <div class="border-b border-gray-100 my-1"></div>
+
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 cursor-pointer transition-colors">
+                                <i class="fa-regular fa-trash-can text-sm text-red-400"></i> Delete Post
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
 
             <div class="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
@@ -101,7 +134,7 @@
                 <i class="fa-regular fa-folder-open text-xl text-gray-400"></i>
             </div>
             <h4 class="text-sm font-bold text-gray-800 mb-1">Aucun post disponible</h4>
-            <p class="text-xs text-gray-400">La base de données ne contient aucun article pour le moment.</p>
+            <p class="text-xs text-gray-400">La base de données ne contains aucun article pour le moment.</p>
         </div>
         @endforelse
 
