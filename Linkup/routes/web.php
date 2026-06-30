@@ -6,6 +6,7 @@ use App\Http\Controllers\PostController;
 
 Route::get('/', [PostController::class, 'index']);
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+Route::get('/creat', [PostController::class , 'store'])->name('creat.user');
 Route::resource('posts' , PostController::class);
  
 Route::get('/login' , function(){
