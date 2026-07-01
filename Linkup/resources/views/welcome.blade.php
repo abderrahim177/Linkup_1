@@ -2,11 +2,11 @@
 
 @section('content')
 @if(session('success'))
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            showSuccessAlert("{{ session('success') }}");
-        });
-    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        showSuccessAlert("{{ session('success') }}");
+    });
+</script>
 @endif
 <div x-data="{ openModal: false }" class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
@@ -86,10 +86,26 @@
 
                         <div class="border-b border-gray-100 my-1"></div>
 
-                        <form action="{{ route('delete', $post->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                        <form action="{{ route('delete', $post->id) }}" method="POST" id="delete-form-{{ $post->id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 cursor-pointer transition-colors">
+                            <button type="button" id="btn_delete"
+                                @click="
+                                Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: 'You won\'t be able to revert this!',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d33',
+                                    cancelButtonColor: '#3085d6',
+                                    confirmButtonText: 'Yes, delete it!'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        document.getElementById('delete-form-{{ $post->id }}').submit();
+                                    }
+                                })
+                            "
+                                class="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 cursor-pointer transition-colors">
                                 <i class="fa-regular fa-trash-can text-sm text-red-400"></i> Delete Post
                             </button>
                         </form>
