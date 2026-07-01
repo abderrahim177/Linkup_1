@@ -20,3 +20,5 @@ Route::post('/login', [AuthController::class, 'check'])->name('check_user');
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
 
 Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+
+Route::delete('/delete/{post}' , [PostController::class , 'destroy'])->name('delete');

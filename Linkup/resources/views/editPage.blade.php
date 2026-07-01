@@ -1,15 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-@if ($errors->any())
-    <div style="color: red; background: #f8d7da; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 <form action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

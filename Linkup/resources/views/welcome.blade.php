@@ -1,6 +1,13 @@
 @extends('layouts.master')
 
 @section('content')
+@if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            showSuccessAlert("{{ session('success') }}");
+        });
+    </script>
+@endif
 <div x-data="{ openModal: false }" class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
     <div class="lg:col-span-2 space-y-4">
@@ -79,7 +86,7 @@
 
                         <div class="border-b border-gray-100 my-1"></div>
 
-                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                        <form action="{{ route('delete', $post->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 cursor-pointer transition-colors">
@@ -215,7 +222,6 @@
 
             <form action="{{ route('posts.store') }}" method="POST">
                 @csrf
-
                 <div class="px-6 py-4">
                     <textarea name="content" rows="6" required
                         placeholder="What do you want to talk about?"
@@ -254,4 +260,5 @@
     </div>
 
 </div>
+<script src="{{ asset('js/alerts.js') }}"></script>
 @endsection

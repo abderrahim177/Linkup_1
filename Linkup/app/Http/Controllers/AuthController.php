@@ -9,7 +9,6 @@ use App\Http\Requests\loginRequest;
 use App\Models\User; 
 use Illuminate\Support\Facades\Hash;
 use App\Models\Post;
-use Symfony\Component\Routing\Annotation\Route;
 
 class AuthController extends Controller
 {
