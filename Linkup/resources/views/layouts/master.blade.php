@@ -91,8 +91,8 @@
 
                     <div class="px-4 pb-4 text-center -mt-8 relative border-b border-gray-100">
                         <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Avatar" class="w-16 h-16 rounded-full mx-auto border-4 border-white object-cover shadow-sm">
-                        <h3 class="font-bold text-gray-900 text-base mt-2">{{ auth()->user()->name }}</h3>
-                        <p class="text-xs text-gray-500 mt-0.5">{{ auth()->user()->headline }}</p>
+                        <h3 class="font-bold text-gray-900 text-base mt-2">ali</h3>
+                        <p class="text-xs text-gray-500 mt-0.5">dev</p>
                     </div>
 
                     <div class="p-4 text-xs space-y-3 border-b border-gray-100">

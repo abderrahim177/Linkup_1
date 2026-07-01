@@ -73,7 +73,7 @@
                         class="absolute right-0 top-8 w-40 bg-white border border-gray-100 rounded-xl shadow-xl z-50 py-1.5 overflow-hidden"
                         style="display: none;">
 
-                        <a href="{{ route('posts.edit', $post->id) }}" class="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                        <a id="edit" href="{{ route('posts.edit', $post->id) }}" class="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
                             <i class="fa-regular fa-pen-to-square text-sm text-gray-400 group-hover:text-blue-600"></i> Update Post
                         </a>
 
