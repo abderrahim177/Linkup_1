@@ -60,8 +60,8 @@
                 <div class="flex items-center gap-2 cursor-pointer py-1 px-2">
                     <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
                 </div>
-
-                <a href="/logout" class="text-gray-400 hover:text-red-500 transition-colors p-2" title="Déconnexion">
+                
+                <a href="{{ route('logout') }}" class="text-gray-400 hover:text-red-500 transition-colors p-2" title="Déconnexion">
                     <i class="fa-solid fa-power-off text-lg"></i>
                 </a>
                 @endauth

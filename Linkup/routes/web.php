@@ -22,3 +22,6 @@ Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.e
 Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 
 Route::delete('/delete/{post}' , [PostController::class , 'destroy'])->name('delete');
+
+// route of logout 
+Route::get('/logout' , [AuthController::class , 'logout'])->name('logout');

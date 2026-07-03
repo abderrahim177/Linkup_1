@@ -1,13 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-@if(session('success'))
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        showSuccessAlert("{{ session('success') }}");
-    });
-</script>
-@endif
 <div x-data="{ openModal: false }" class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
     <div class="lg:col-span-2 space-y-4">
@@ -239,9 +232,12 @@
             <form action="{{ route('posts.store') }}" method="POST">
                 @csrf
                 <div class="px-6 py-4">
-                    <textarea name="content" rows="6" required
+                    <textarea name="content" rows="6"
                         placeholder="What do you want to talk about?"
                         class="w-full text-base text-gray-800 placeholder-gray-400 border-none resize-none focus:outline-none focus:ring-0 bg-transparent"></textarea>
+                    @error('content')
+                    <span style="color: red; font-size: 14px;">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="px-6 py-2 flex items-center gap-2 text-gray-500">
