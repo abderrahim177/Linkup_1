@@ -58,11 +58,11 @@
                     <button class="text-blue-600 hover:text-blue-700 font-semibold text-xs flex items-center gap-1 cursor-pointer">
                         <i class="fa-solid fa-plus text-[10px]"></i> Follow
                     </button>
-
+                    @can('update', $post)
                     <button @click="open = !open" @click.away="open = false" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-full hover:bg-gray-50 cursor-pointer transition-colors">
                         <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
                     </button>
-
+                     @endcan
                     <div x-show="open"
                         x-transition:enter="transition ease-out duration-100"
                         x-transition:enter-start="opacity-0 scale-95"
@@ -73,35 +73,41 @@
                         class="absolute right-0 top-8 w-40 bg-white border border-gray-100 rounded-xl shadow-xl z-50 py-1.5 overflow-hidden"
                         style="display: none;">
 
+                        @can('update', $post)
                         <a id="edit" href="{{ route('posts.edit', $post->id) }}" class="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
                             <i class="fa-regular fa-pen-to-square text-sm text-gray-400 group-hover:text-blue-600"></i> Update Post
                         </a>
+                        @endcan
 
+                        @can('update', $post)
                         <div class="border-b border-gray-100 my-1"></div>
+                        @endcan
 
+                        @can('delete', $post)
                         <form action="{{ route('delete', $post->id) }}" method="POST" id="delete-form-{{ $post->id }}">
                             @csrf
                             @method('DELETE')
                             <button type="button" id="btn_delete"
                                 @click="
-                                Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: 'You won\'t be able to revert this!',
-                                    icon: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#d33',
-                                    cancelButtonColor: '#3085d6',
-                                    confirmButtonText: 'Yes, delete it!'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        document.getElementById('delete-form-{{ $post->id }}').submit();
-                                    }
-                                })
-                            "
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-{{ $post->id }}').submit();
+                }
+            })
+            "
                                 class="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 cursor-pointer transition-colors">
                                 <i class="fa-regular fa-trash-can text-sm text-red-400"></i> Delete Post
                             </button>
                         </form>
+                        @endcan
                     </div>
                 </div>
             </div>
