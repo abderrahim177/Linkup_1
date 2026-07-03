@@ -61,6 +61,7 @@
                     @can('update', $post)
                     <button @click="open = !open" @click.away="open = false" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-full hover:bg-gray-50 cursor-pointer transition-colors">
                         <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
+                        
                     </button>
                      @endcan
                     <div x-show="open"
