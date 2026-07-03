@@ -58,9 +58,15 @@
                 <div class="h-8 w-[1px] bg-gray-200 mx-1 hidden sm:block"></div>
 
                 <div class="flex items-center gap-2 cursor-pointer py-1 px-2">
-                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                    @if(auth()->user()->profile_image)
+                    <img src="{{ asset('images/' . auth()->user()->profile_image) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                    @else
+                    <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold uppercase select-none">
+                        {{ Str::substr(auth()->user()->name, 0, 1) }}
+                    </div>
+                    @endif
                 </div>
-                
+
                 <a href="{{ route('logout') }}" class="text-gray-400 hover:text-red-500 flex gap-2 items-center transition-colors p-2" title="Déconnexion">
                     <i class="fa-solid fa-power-off text-lg"></i>
                     <span>logout</span>
@@ -91,10 +97,63 @@
                     <div class="h-16 relative bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');">
                     </div>
 
-                    <div class="px-4 pb-4 text-center -mt-8 relative border-b border-gray-100">
-                        <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Avatar" class="w-16 h-16 rounded-full mx-auto border-4 border-white object-cover shadow-sm">
+                    <div x-data="{ openModal: false }" class="px-4 pb-4 text-center -mt-8 relative border-b border-gray-100">
+
+                        <div class="relative w-8 h-8 mx-auto group">
+                            @if(auth()->user()->profile_image)
+                            <img src="{{ asset('images/' . auth()->user()->profile_image) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                            @else
+                            <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold uppercase select-none">
+                                {{ Str::substr(auth()->user()->name, 0, 1) }}
+                            </div>
+                            @endif
+
+                            <button @click="openModal = true" type="button" class="absolute -bottom-1 -right-1 bg-white border border-gray-200 shadow-sm text-gray-500 hover:text-blue-600 p-1 rounded-full cursor-pointer transition-colors flex items-center justify-center">
+                                <i class="fa-solid fa-pen text-[9px]"></i>
+                            </button>
+                        </div>
+
                         <h3 class="font-bold text-gray-900 text-base mt-2">{{ auth()->user()->name }}</h3>
                         <p class="text-xs text-gray-500 mt-0.5">{{ auth()->user()->headline }}</p>
+
+                        <!-- Zaydna x-teleport hna bach l-modal t-ffa b3id 3la l-aside structurellement o t-afficha l-fouq dyal kolchi -->
+                        <template x-teleport="body">
+                            <div x-show="openModal"
+                                x-transition:enter="transition ease-out duration-300"
+                                x-transition:enter-start="opacity-0"
+                                x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition ease-in duration-200"
+                                x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0"
+                                class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
+                                style="display: none;">
+
+                                <div @click.away="openModal = false" class="bg-white rounded-2xl max-w-sm w-full p-6 text-left shadow-xl relative">
+                                    <h3 class="text-base font-bold text-gray-900 mb-4">Modifier la photo de profil</h3>
+
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('POST')
+
+                                        <div class="mb-5">
+                                            <label class="block text-xs font-semibold text-gray-500 mb-2">Choisir une image</label>
+                                            <input type="file" name="profile_image" accept="image/*" required
+                                                class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+                                        </div>
+
+                                        <div class="flex justify-end gap-2 text-xs">
+                                            <button @click="openModal = false" type="button" class="px-4 py-2 font-semibold text-gray-600 hover:bg-gray-50 rounded-lg">
+                                                Annuler
+                                            </button>
+                                            <button type="submit" class="px-4 py-2 font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm">
+                                                Enregistrer
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </template>
+
                     </div>
 
                     <div class="p-4 text-xs space-y-3 border-b border-gray-100">
