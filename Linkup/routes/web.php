@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\saveController;
 Route::get('/', [PostController::class, 'index']);
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
@@ -34,5 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     // like
     Route::post('/posts/{post}/like', [LikeController::class, 'toggleLike'])->name('posts.like');
+    // save post
+    Route::post('/saved/{post}', [saveController::class , 'save'])->name('save');
 });
 

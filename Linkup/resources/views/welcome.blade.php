@@ -168,9 +168,23 @@
                 <button class="flex items-center justify-center gap-2 hover:bg-gray-50 flex-1 py-2 rounded-lg transition-colors cursor-pointer hover:text-blue-600">
                     <i class="fa-solid fa-arrows-rotate text-base"></i> Repost
                 </button>
-                <button class="flex items-center justify-center gap-2 hover:bg-gray-50 flex-1 py-2 rounded-lg transition-colors cursor-pointer hover:text-blue-600">
-                    <i class="fa-solid fa-bookmark text-gray-400 w-4"></i> Save
-                </button>
+                @auth
+                @php
+                $isSaved = $post->isSavedByUser(Auth::id());
+                @endphp
+
+                <form action="{{ route('save', $post->id) }}" method="POST" class="flex-1">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center justify-center gap-2 hover:bg-gray-50 py-2 rounded-lg transition-colors cursor-pointer {{ $isSaved ? 'text-blue-600 font-bold' : 'text-gray-500' }}">
+                        <i class="{{ $isSaved ? 'fa-solid fa-bookmark text-blue-600' : 'fa-regular fa-bookmark text-gray-400' }} w-4"></i>
+                        <span>{{ $isSaved ? 'Saved' : 'Save' }}</span>
+                    </button>
+                </form>
+                @else
+                <a href="{{ route('login') }}" class="flex-1 flex items-center justify-center gap-2 hover:bg-gray-50 py-2 rounded-lg transition-colors text-xs font-semibold text-gray-500">
+                    <i class="fa-regular fa-bookmark text-gray-400 w-4"></i> Save
+                </a>
+                @endauth
             </div>
             <div x-show="isCommentsOpen"
                 x-transition:enter="transition ease-out duration-200"

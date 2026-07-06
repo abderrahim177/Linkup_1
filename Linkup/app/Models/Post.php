@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\SavedPost;
 
 class Post extends Model
 {
@@ -26,5 +27,10 @@ class Post extends Model
     public function isLikedByUser($userId)
     {
         return $this->likes()->where('user_id', $userId)->exists();
+    }
+    public function isSavedByUser($userId)
+    {
+        if (!$userId) return false;
+        return SavedPost::where('user_id', $userId)->where('post_id', $this->id)->exists();
     }
 }
