@@ -2,6 +2,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', [PostController::class, 'index']);
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
@@ -25,3 +26,13 @@ Route::delete('/delete/{post}' , [PostController::class , 'destroy'])->name('del
 
 // route of logout 
 Route::get('/logout' , [AuthController::class , 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    // add comments 
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    // delete comments
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    // like
+    Route::post('/posts/{post}/like', [PostController::class, 'toggleLike'])->name('posts.like');
+});
+

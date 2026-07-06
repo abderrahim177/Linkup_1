@@ -33,9 +33,8 @@
             </button>
         </div>
 
-
         @forelse($posts as $post)
-        <div x-data="{ open: false }" class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 space-y-3 transition-all hover:shadow-sm relative">
+        <div x-data="{ open: false, isCommentsOpen: false }" class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 space-y-3 transition-all hover:shadow-sm relative">
             <div class="flex items-start justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold shadow-sm">
@@ -61,9 +60,8 @@
                     @can('update', $post)
                     <button @click="open = !open" @click.away="open = false" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-full hover:bg-gray-50 cursor-pointer transition-colors">
                         <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
-                        
                     </button>
-                     @endcan
+                    @endcan
                     <div x-show="open"
                         x-transition:enter="transition ease-out duration-100"
                         x-transition:enter-start="opacity-0 scale-95"
@@ -76,7 +74,7 @@
 
                         @can('update', $post)
                         <a id="edit" href="{{ route('posts.edit', $post->id) }}" class="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors">
-                            <i class="fa-regular fa-pen-to-square text-sm text-gray-400 group-hover:text-blue-600"></i> Update Post
+                            <i class="fa-regular fa-pen-to-square text-sm text-gray-400"></i> Update Post
                         </a>
                         @endcan
 
@@ -90,20 +88,20 @@
                             @method('DELETE')
                             <button type="button" id="btn_delete"
                                 @click="
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'You won\'t be able to revert this!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('delete-form-{{ $post->id }}').submit();
-                }
-            })
-            "
+                                Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: 'You won\'t be able to revert this!',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d33',
+                                    cancelButtonColor: '#3085d6',
+                                    confirmButtonText: 'Yes, delete it!'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        document.getElementById('delete-form-{{ $post->id }}').submit();
+                                    }
+                                })
+                                "
                                 class="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 cursor-pointer transition-colors">
                                 <i class="fa-regular fa-trash-can text-sm text-red-400"></i> Delete Post
                             </button>
@@ -130,7 +128,9 @@
                     <span class="hover:underline cursor-pointer">Garry and 1,200 others</span>
                 </div>
                 <div class="space-x-2">
-                    <span class="hover:underline cursor-pointer">86 comments</span>
+                    <span @click="isCommentsOpen = !isCommentsOpen" class="hover:underline hover:text-blue-600 cursor-pointer font-medium text-gray-500">
+                        {{ $post->comments->count() }} comments
+                    </span>
                     <span>•</span>
                     <span class="hover:underline cursor-pointer">14 reposts</span>
                 </div>
@@ -140,7 +140,9 @@
                 <button class="flex items-center justify-center gap-2 hover:bg-gray-50 flex-1 py-2 rounded-lg transition-colors cursor-pointer hover:text-blue-600">
                     <i class="fa-regular fa-thumbs-up text-base"></i> Like
                 </button>
-                <button class="flex items-center justify-center gap-2 hover:bg-gray-50 flex-1 py-2 rounded-lg transition-colors cursor-pointer hover:text-blue-600">
+                <button @click="isCommentsOpen = !isCommentsOpen" 
+                        class="flex items-center justify-center gap-2 hover:bg-gray-50 flex-1 py-2 rounded-lg transition-colors cursor-pointer font-semibold text-xs hover:text-blue-600"
+                        :class="isCommentsOpen ? 'text-blue-600 bg-blue-50/50' : 'text-gray-500'">
                     <i class="fa-regular fa-comment text-base"></i> Comment
                 </button>
                 <button class="flex items-center justify-center gap-2 hover:bg-gray-50 flex-1 py-2 rounded-lg transition-colors cursor-pointer hover:text-blue-600">
@@ -150,6 +152,80 @@
                     <i class="fa-regular fa-paper-plane text-base"></i> Send
                 </button>
             </div>
+            <div x-show="isCommentsOpen" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 -translate-y-2"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 class="border-t border-gray-100 pt-4 space-y-4" 
+                 style="display: none;">
+                
+                @auth
+                    <form action="{{ route('comments.store', $post->id) }}" method="POST" class="flex items-start gap-3">
+                        @csrf
+                        <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shadow-sm flex-shrink-0">
+                            {{ auth()->user() ? strtoupper(substr(auth()->user()->name, 0, 1)) : 'U' }}
+                        </div>
+                        
+                        <div class="flex-1 relative">
+                            <textarea 
+                                name="content" 
+                                rows="1" 
+                                required 
+                                maxlength="500"
+                                placeholder="Add a professional comment..." 
+                                class="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all resize-none pr-12"
+                                oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"
+                            ></textarea>
+                            
+                            <button type="submit" class="absolute right-2.5 bottom-2 p-1 text-blue-600 hover:bg-blue-50 rounded-full transition-colors cursor-pointer">
+                                <i class="fa-solid fa-paper-plane text-sm"></i>
+                            </button>
+                        </div>
+                    </form>
+                @else
+                    <div class="bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
+                        <p class="text-xs text-gray-500">
+                            Please <a href="{{ route('login') }}" class="text-blue-600 font-bold hover:underline">Log in</a> to write a comment.
+                        </p>
+                    </div>
+                @endauth
+
+                <div class="space-y-3 max-h-80 overflow-y-auto pr-1">
+                    @forelse($post->comments as $comment)
+                        <div class="flex items-start gap-2.5 group">
+                            <div class="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 text-xs font-bold shadow-sm flex-shrink-0">
+                                {{ $comment->user ? strtoupper(substr($comment->user->name, 0, 1)) : 'M' }}
+                            </div>
+                            
+                            <div class="flex-1 bg-gray-50 rounded-2xl px-3 py-2 text-xs relative border border-gray-100">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="font-bold text-gray-900 hover:text-blue-600 cursor-pointer">{{ $comment->user->name ?? 'Membre LinkUp' }}</span>
+                                        <span class="text-[10px] text-gray-400 font-normal block">{{ $comment->user->headline ?? 'Professionnel' }}</span>
+                                    </div>
+                                    <span class="text-[10px] text-gray-400">{{ $comment->created_at ? $comment->created_at->diffForHumans() : 'Now' }}</span>
+                                </div>
+                                <p class="text-gray-700 mt-1.5 text-sm leading-normal whitespace-pre-line">
+                                    {{ $comment->content }}
+                                </p>
+
+                                @can('delete', $comment)
+                                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-gray-400 hover:text-red-500 p-1 rounded-md hover:bg-gray-100 transition-colors cursor-pointer">
+                                            <i class="fa-regular fa-trash-can text-xs"></i>
+                                        </button>
+                                    </form>
+                                @endcan
+                            </div>
+                        </div>
+                    @empty
+                        <p class="text-center text-xs text-gray-400 py-2">Be the first to comment on this post!</p>
+                    @endforelse
+                </div>
+            </div>
+
         </div>
         @empty
         <div class="bg-white border border-gray-200 rounded-xl p-12 text-center text-gray-500 shadow-sm max-w-md mx-auto">
@@ -157,7 +233,7 @@
                 <i class="fa-regular fa-folder-open text-xl text-gray-400"></i>
             </div>
             <h4 class="text-sm font-bold text-gray-800 mb-1">Aucun post disponible</h4>
-            <p class="text-xs text-gray-400">La base de données ne contains aucun article pour le moment.</p>
+            <p class="text-xs text-gray-400">La base de données ne contient aucun article pour le moment.</p>
         </div>
         @endforelse
 
@@ -248,7 +324,6 @@
                 </div>
 
                 <div class="px-6 py-2 flex items-center gap-2 text-gray-500">
-
                     <label class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-100 hover:text-blue-600 transition cursor-pointer" title="Add a photo">
                         <input type="file" name="post_image" accept="image/*" class="hidden" onchange="console.log('Image selected:', this.files[0].name)">
                         <i class="fa-regular fa-image text-lg"></i>
@@ -263,7 +338,6 @@
                         <input type="file" name="post_document" accept=".pdf,.doc,.docx,.txt" class="hidden" onchange="console.log('Document selected:', this.files[0].name)">
                         <i class="fa-regular fa-file-lines text-lg"></i>
                     </label>
-
                 </div>
 
                 <div class="flex justify-end items-center gap-3 px-6 py-3 border-t border-gray-100 bg-gray-50/50">

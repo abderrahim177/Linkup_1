@@ -100,7 +100,7 @@
                     <div x-data="{ openModal: false }" class="px-4 pb-4 text-center -mt-8 relative border-b border-gray-100">
 
                         <div class="relative w-8 h-8 mx-auto group">
-                            @if(auth()->user()->profile_image)
+                            @if(auth()->user()?->profile_image)
                             <img src="{{ asset('images/' . auth()->user()->profile_image) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
                             @else
                             <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold uppercase select-none">
@@ -131,7 +131,7 @@
                                 <div @click.away="openModal = false" class="bg-white rounded-2xl max-w-sm w-full p-6 text-left shadow-xl relative">
                                     <h3 class="text-base font-bold text-gray-900 mb-4">Modifier la photo de profil</h3>
 
-                                    <form action="" method="POST" enctype="multipart/form-data">
+                                    <form  method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('POST')
 

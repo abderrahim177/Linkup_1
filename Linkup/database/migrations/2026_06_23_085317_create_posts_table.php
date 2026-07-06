@@ -14,6 +14,7 @@ return new class extends Migration
     Schema::create('posts', function (Blueprint $table) {
         $table->id();
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        $table->foreignId('original_post_id')->nullable()->after('user_id')->constrained('posts')->onDelete('cascade');
         $table->text('content');
         $table->timestamps(); 
     });
@@ -23,6 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        
         Schema::dropIfExists('posts');
     }
 };
