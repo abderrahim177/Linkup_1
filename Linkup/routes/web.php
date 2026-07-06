@@ -37,5 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/posts/{post}/like', [LikeController::class, 'toggleLike'])->name('posts.like');
     // save post
     Route::post('/saved/{post}', [saveController::class , 'save'])->name('save');
+    // get all posts saved
+    Route::get('/saved-posts', [SaveController::class, 'index'])->name('saved.index');
 });
 

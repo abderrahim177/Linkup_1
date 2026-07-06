@@ -26,7 +26,7 @@
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
 
             <div class="flex items-center gap-4 flex-1 max-w-md">
-                <a href="/feed" class="text-blue-600 font-bold text-2xl tracking-wider flex items-center gap-2">
+                <a href="/" class="text-blue-600 font-bold text-2xl tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-circle-nodes"></i> Link<span class="text-gray-900">Up</span>
                 </a>
                 <div class="relative w-full hidden md:block">
@@ -131,7 +131,7 @@
                                 <div @click.away="openModal = false" class="bg-white rounded-2xl max-w-sm w-full p-6 text-left shadow-xl relative">
                                     <h3 class="text-base font-bold text-gray-900 mb-4">Modifier la photo de profil</h3>
 
-                                    <form  method="POST" enctype="multipart/form-data">
+                                    <form method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('POST')
 
@@ -168,8 +168,19 @@
                     </div>
 
                     <div class="p-2 text-xs font-semibold text-gray-600 space-y-1">
-                        <a href="#" class="flex items-center gap-2.5 p-2 hover:bg-gray-50 rounded-lg transition-colors">
-                            <i class="fa-solid fa-bookmark text-gray-400 w-4"></i> Saved items
+                        <a href="{{ route('saved.index') }}" class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 rounded-xl transition-colors w-full">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-bookmark text-blue-600"></i>
+                                <span>Saved Posts</span>
+                            </div>
+
+                            @auth
+                            @if(auth()->user()->savedPosts()->count() > 0)
+                            <span class="flex items-center justify-center bg-blue-100 text-blue-600 text-xs font-bold px-2 py-0.5 rounded-full min-w-[20px] h-5">
+                                {{ auth()->user()->savedPosts()->count() }}
+                            </span>
+                            @endif
+                            @endauth
                         </a>
                         <a href="#" class="flex items-center gap-2.5 p-2 hover:bg-gray-50 rounded-lg transition-colors">
                             <i class="fa-solid fa-users text-gray-400 w-4"></i> Groups
