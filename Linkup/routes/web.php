@@ -3,7 +3,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
-
+use App\Http\Controllers\LikeController;
 Route::get('/', [PostController::class, 'index']);
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
@@ -33,6 +33,6 @@ Route::middleware(['auth'])->group(function () {
     // delete comments
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     // like
-    Route::post('/posts/{post}/like', [PostController::class, 'toggleLike'])->name('posts.like');
+    Route::post('/posts/{post}/like', [LikeController::class, 'toggleLike'])->name('posts.like');
 });
 
