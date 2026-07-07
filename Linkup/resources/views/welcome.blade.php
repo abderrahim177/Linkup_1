@@ -7,8 +7,12 @@
 
         <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm space-y-3">
             <div class="flex items-center gap-3">
+                <div class="relative inline-block">
                 <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Avatar" class="w-9 h-9 rounded-full object-cover">
-
+                <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-white 
+                    {{ auth()->check() && auth()->user()->isOnline() ? 'bg-green-500' : 'bg-red-500' }}">
+                </span>
+                </div>
                 <button @click="openModal = true" class="flex-1 bg-gray-50 border border-gray-200 hover:bg-gray-100 text-left text-gray-400 text-sm py-2 px-4 rounded-full transition-colors cursor-pointer focus:outline-none">
                     Start a post...
                 </button>
@@ -57,7 +61,7 @@
                     <div class="flex items-center gap-2">
 
                         <div class="flex items-center gap-2">
-                             <p class="text-xs text-gray-400 shrink-0">
+                            <p class="text-xs text-gray-400 shrink-0">
                                 {{ $post->created_at ? $post->created_at->diffForHumans() : 'Now' }}
                             </p>
 
@@ -78,7 +82,7 @@
 
                             <span class="text-xs text-gray-300 font-bold">•</span>
 
-                           
+
 
                         </div>
                     </div>

@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -72,5 +73,8 @@ class User extends Authenticatable
     public function isFollowing($userId)
     {
         return $this->followings()->where('user_id', $userId)->exists();
+    }
+    public function isOnline(){
+        return Cache::has('user-is-online-' . $this->id);
     }
 }
