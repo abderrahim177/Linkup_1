@@ -38,12 +38,12 @@
             <div class="flex items-start justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold shadow-sm">
-                        {{ $post->user ? strtoupper(substr($post->user->name, 0, 1)) : 'A' }}
+                        <a href="{{route('profile_user' , $post->user->id )}}">{{ $post->user ? strtoupper(substr($post->user->name, 0, 1)) : 'A' }}</a>
                     </div>
                     <div>
                         <div class="flex items-center gap-2">
                             <h4 class="font-bold text-gray-900 text-sm hover:text-blue-600 cursor-pointer transition-colors">
-                                {{ $post->user->name ?? 'Auteur anonyme' }}
+                                <a href="{{route('profile_user' , $post->user->id )}}">{{ $post->user->name ?? 'Auteur anonyme' }}</a>
                             </h4>
                             <span class="text-xs text-gray-400 font-normal">• {{ $post->created_at ? $post->created_at->diffForHumans() : '2h ago' }}</span>
                         </div>

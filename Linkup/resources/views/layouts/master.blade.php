@@ -168,8 +168,8 @@
                     </div>
 
                     <div class="p-2 text-xs font-semibold text-gray-600 space-y-1">
-                        <a href="{{ route('saved.index') }}" class="flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 rounded-xl transition-colors w-full">
-                            <div class="flex items-center gap-3">
+                        <a href="{{ route('saved.index') }}" class="flex items-center justify-between px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 rounded-xl transition-colors w-full">
+                            <div class="flex items-center  gap-3">
                                 <i class="fa-solid fa-bookmark text-blue-600"></i>
                                 <span>Saved Posts</span>
                             </div>
