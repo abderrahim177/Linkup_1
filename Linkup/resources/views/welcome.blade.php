@@ -57,6 +57,7 @@
                     <button class="text-blue-600 hover:text-blue-700 font-semibold text-xs flex items-center gap-1 cursor-pointer">
                         <i class="fa-solid fa-plus text-[10px]"></i> Follow
                     </button>
+                    <!-- policie -->
                     @can('update', $post)
                     <button @click="open = !open" @click.away="open = false" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-full hover:bg-gray-50 cursor-pointer transition-colors">
                         <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
@@ -165,6 +166,7 @@
                     :class="isCommentsOpen ? 'text-blue-600 bg-blue-50/50' : 'text-gray-500'">
                     <i class="fa-regular fa-comment text-base"></i> Comment
                 </button>
+
                 <button class="flex items-center justify-center gap-2 hover:bg-gray-50 flex-1 py-2 rounded-lg transition-colors cursor-pointer hover:text-blue-600">
                     <i class="fa-solid fa-arrows-rotate text-base"></i> Repost
                 </button>
@@ -225,31 +227,56 @@
 
                 <div class="space-y-3 max-h-80 overflow-y-auto pr-1">
                     @forelse($post->comments as $comment)
-                    <div class="flex items-start gap-2.5 group">
+                    <div x-data="{ isDropdownOpen: false }"
+                        @click.away="isDropdownOpen = false"
+                        class="flex items-start gap-2.5 group relative">
+
                         <div class="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 text-xs font-bold shadow-sm flex-shrink-0">
                             {{ $comment->user ? strtoupper(substr($comment->user->name, 0, 1)) : 'M' }}
                         </div>
 
-                        <div class="flex-1 bg-gray-50 rounded-2xl px-3 py-2 text-xs relative border border-gray-100">
+                        <div class="flex-1 bg-gray-50 rounded-2xl px-3 py-2 text-xs relative border border-gray-100 pr-8">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <span class="font-bold text-gray-900 hover:text-blue-600 cursor-pointer">{{ $comment->user->name ?? 'Membre LinkUp' }}</span>
                                     <span class="text-[10px] text-gray-400 font-normal block">{{ $comment->user->headline ?? 'Professionnel' }}</span>
                                 </div>
-                                <span class="text-[10px] text-gray-400">{{ $comment->created_at ? $comment->created_at->diffForHumans() : 'Now' }}</span>
+                                <span class="text-[10px] text-gray-400 pl-2 shrink-0">{{ $comment->created_at ? $comment->created_at->diffForHumans() : 'Now' }}</span>
                             </div>
+
                             <p class="text-gray-700 mt-1.5 text-sm leading-normal whitespace-pre-line">
                                 {{ $comment->content }}
                             </p>
 
                             @can('delete', $comment)
-                            <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-gray-400 hover:text-red-500 p-1 rounded-md hover:bg-gray-100 transition-colors cursor-pointer">
-                                    <i class="fa-regular fa-trash-can text-xs"></i>
+                            <div class="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+
+                                <button @click="isDropdownOpen = !isDropdownOpen"
+                                    class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-200 rounded-full transition-colors cursor-pointer">
+                                    <i class="fa-solid fa-ellipsis text-xs"></i>
                                 </button>
-                            </form>
+
+                                <div x-show="isDropdownOpen"
+                                    x-transition:enter="transition ease-out duration-100"
+                                    x-transition:enter-start="transform opacity-0 scale-95"
+                                    x-transition:enter-end="transform opacity-100 scale-100"
+                                    x-transition:leave="transition ease-in duration-75"
+                                    x-transition:leave-start="transform opacity-100 scale-100"
+                                    x-transition:leave-end="transform opacity-0 scale-95"
+                                    class="absolute right-0 mt-1 w-32 bg-white border border-gray-200 rounded-xl shadow-lg py-1 z-20"
+                                    style="display: none;">
+
+                                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="w-full flex items-center gap-2 px-2.5 py-1.5 text-[11px] font-semibold text-red-600 hover:bg-red-50 transition-colors cursor-pointer text-left">
+                                            <i class="fa-regular fa-trash-can text-red-500"></i>
+                                            <span>Delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                             @endcan
                         </div>
                     </div>
