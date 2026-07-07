@@ -15,9 +15,7 @@ class SaveController extends Controller
         if (!Auth::check()) {
             return redirect()->route('login');
         }
-
         $userId = Auth::id();
-
         $savedPost = SavedPost::where('user_id', $userId)
             ->where('post_id', $post->id)
             ->first();

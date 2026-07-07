@@ -17,6 +17,7 @@ class AuthController extends Controller
         $posts = Post::with('user')->get();
         return view('welcome', compact('posts'));
     }
+    
     public function register(){
         return view("auth.register");
     }

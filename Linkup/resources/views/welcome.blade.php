@@ -200,11 +200,19 @@
                         {{ auth()->user() ? strtoupper(substr(auth()->user()->name, 0, 1)) : 'U' }}
                     </div>
 
-                    <div class="flex-1 relative">
-                        <textarea name="content" rows="1" maxlength="500" placeholder="Add a professional comment..." class="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition-all resize-none pr-12" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
-                        <button type="submit" class="absolute right-2.5 bottom-2 p-1 text-blue-600 hover:bg-blue-50 rounded-full transition-colors cursor-pointer">
+                    <div class="flex-1 flex items-end gap-2 bg-gray-50 border border-gray-200 rounded-2xl px-3 py-1.5 focus-within:ring-1 focus-within:ring-blue-500 focus-within:border-blue-500 focus-within:bg-white transition-all">
+
+                        <textarea name="content"
+                            rows="1"
+                            maxlength="500"
+                            placeholder="Add a professional comment..."
+                            class="flex-1 bg-transparent text-sm text-gray-800 placeholder-gray-400 focus:outline-none resize-none overflow-hidden py-1 px-1 min-h-[24px] max-h-[120px]"
+                            oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"></textarea>
+
+                        <button type="submit" class="flex items-center justify-center w-8 h-8 text-blue-600 hover:bg-blue-50 rounded-full transition-colors cursor-pointer shrink-0 mb-0.5">
                             <i class="fa-solid fa-paper-plane text-sm"></i>
                         </button>
+
                     </div>
                 </form>
                 @else

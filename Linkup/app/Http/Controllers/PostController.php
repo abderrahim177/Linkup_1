@@ -24,11 +24,10 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(postCreatRequest $request){
-         $credentials = $request->validated();
-         $credentials['user_id'] = $request->user()->id;
-          $post = Post::create($credentials);
-          
-           return redirect()->route('dashboard')->with('success', 'post created successfully!');
+        $credentials = $request->validated();
+        $credentials['user_id'] = $request->user()->id;
+        $post = Post::create($credentials);  
+        return redirect()->route('dashboard')->with('success', 'post created successfully!');
     }
 
     /**
