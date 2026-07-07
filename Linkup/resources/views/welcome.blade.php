@@ -54,9 +54,34 @@
                 </div>
 
                 <div class="flex items-center gap-3 relative">
-                    <button class="text-blue-600 hover:text-blue-700 font-semibold text-xs flex items-center gap-1 cursor-pointer">
-                        <i class="fa-solid fa-plus text-[10px]"></i> Follow
-                    </button>
+                    <div class="flex items-center gap-2">
+
+                        <div class="flex items-center gap-2">
+                             <p class="text-xs text-gray-400 shrink-0">
+                                {{ $post->created_at ? $post->created_at->diffForHumans() : 'Now' }}
+                            </p>
+
+                            @auth
+                            @if(auth()->id() !== $post->user_id)
+                            <form action="{{ route('user.follow', $post->user->id) }}" method="POST" class="inline-flex items-center">
+                                @csrf
+                                @php
+                                $isFollowing = auth()->user()->isFollowing($post->user->id);
+                                @endphp
+
+                                <button type="submit" class="text-xs font-bold cursor-pointer transition-colors {{ $isFollowing ? 'text-gray-400 hover:text-gray-600' : 'text-blue-600 hover:text-blue-800' }}">
+                                    {{ $isFollowing ? 'Following' : 'Follow' }}
+                                </button>
+                            </form>
+                            @endif
+                            @endauth
+
+                            <span class="text-xs text-gray-300 font-bold">•</span>
+
+                           
+
+                        </div>
+                    </div>
                     <!-- policie -->
                     @can('update', $post)
                     <button @click="open = !open" @click.away="open = false" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-full hover:bg-gray-50 cursor-pointer transition-colors">

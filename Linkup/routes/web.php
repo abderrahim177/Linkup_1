@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\saveController;
+use App\Http\Controllers\FollowController;
 Route::get('/', [PostController::class, 'index']);
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
@@ -39,5 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/saved/{post}', [saveController::class , 'save'])->name('save');
     // get all posts saved
     Route::get('/saved-posts', [SaveController::class, 'index'])->name('saved.index');
+    // following
+    Route::post('/user/{user}/follow', [FollowController::class, 'toggleFollow'])->name('user.follow');
 });
 
