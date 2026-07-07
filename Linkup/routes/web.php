@@ -7,6 +7,9 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\saveController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ProfileUserController;
+
+Route::middleware(['auth'])->group(function () {
+    
 Route::get('/', [PostController::class, 'index']);
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
@@ -26,24 +29,21 @@ Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.e
 Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 
 Route::delete('/delete/{post}' , [PostController::class , 'destroy'])->name('delete');
-
 // route of logout 
 Route::get('/logout' , [AuthController::class , 'logout'])->name('logout');
-
-Route::middleware(['auth'])->group(function () {
-    // add comments 
-    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+ // add comments 
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     // delete comments
-    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     // like
-    Route::post('/posts/{post}/like', [LikeController::class, 'toggleLike'])->name('posts.like');
+Route::post('/posts/{post}/like', [LikeController::class, 'toggleLike'])->name('posts.like');
     // save post
-    Route::post('/saved/{post}', [saveController::class , 'save'])->name('save');
+Route::post('/saved/{post}', [saveController::class , 'save'])->name('save');
     // get all posts saved
-    Route::get('/saved-posts', [SaveController::class, 'index'])->name('saved.index');
+Route::get('/saved-posts', [SaveController::class, 'index'])->name('saved.index');
     // following
-    Route::post('/user/{user}/follow', [FollowController::class, 'toggleFollow'])->name('user.follow');
+Route::post('/user/{user}/follow', [FollowController::class, 'toggleFollow'])->name('user.follow');
     // profile user
-    Route::get('/profile-user/{user}' , [ProfileUserController::class , 'profileUser'])->name('profile_user');
+Route::get('/profile-user/{user}' , [ProfileUserController::class , 'profileUser'])->name('profile_user');
 });
 
