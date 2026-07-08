@@ -66,9 +66,6 @@
                         <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold uppercase select-none">
                             {{ Str::substr(auth()->user()->name, 0, 1) }}
                         </div>
-                        <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-white 
-                    {{ auth()->check() && auth()->user()->isOnline() ? 'bg-green-500' : 'bg-red-500' }}">
-                        </span>
                     </div>
                     @endif
                 </div>

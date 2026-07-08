@@ -29,14 +29,6 @@ class PostController extends Controller
         $post = Post::create($credentials);  
         return redirect()->route('dashboard')->with('success', 'post created successfully!');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id){
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -59,5 +51,9 @@ class PostController extends Controller
     public function destroy(Post $post){
         $post->delete();
         return redirect()->route('dashboard')->with('success', 'Deleted with success !');
+    }
+    
+    public function show(Post $post){
+        return view('details',compact('post'));
     }
 }

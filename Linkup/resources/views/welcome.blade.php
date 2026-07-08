@@ -8,10 +8,26 @@
         <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm space-y-3">
             <div class="flex items-center gap-3">
                 <div class="relative inline-block">
-                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Avatar" class="w-9 h-9 rounded-full object-cover">
-                <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-white 
-                    {{ auth()->check() && auth()->user()->isOnline() ? 'bg-green-500' : 'bg-red-500' }}">
-                </span>
+
+                    @if(auth()->check())
+                    <div class="flex items-center gap-3">
+                        <div class="relative inline-block flex-shrink-0">
+                            <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                                alt="Avatar"
+                                class="w-10 h-10 rounded-full object-cover border border-gray-200">
+                            <span class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-white"></span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-gray-800 leading-tight">
+                                {{ auth()->user()->name }}
+                            </span>
+
+                            <span class="text-xs text-gray-500 leading-tight mt-0.5">
+                                {{ auth()->user()->headline ?? 'No headline available' }}
+                            </span>
+                        </div>
+                    </div>
+                    @endif
                 </div>
                 <button @click="openModal = true" class="flex-1 bg-gray-50 border border-gray-200 hover:bg-gray-100 text-left text-gray-400 text-sm py-2 px-4 rounded-full transition-colors cursor-pointer focus:outline-none">
                     Start a post...
@@ -140,11 +156,16 @@
                     </div>
                 </div>
             </div>
-
-            <div class="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-                {{ $post->content }}
-            </div>
-
+    
+        <p class="text-sm text-gray-700 break-words whitespace-pre-line">
+            {{ Str::limit($post->content, 150, '...') }}
+            @if(strlen($post->content) > 150)
+            <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 font-semibold hover:underline ml-1">
+                Voir plus
+            </a>
+            @endif
+        </p>
+        
             <div class="text-xs font-semibold text-blue-600 space-x-1">
                 <span>#Laravel</span> <span>#WebDev</span> <span>#BuildInPublic</span>
             </div>

@@ -14,13 +14,10 @@ class LikeController extends Controller
         if (!Auth::check()) {
             return redirect()->route('login');
         }
-
         $userId = Auth::id(); 
-
         $like = Like::where('post_id', $post->id)
                     ->where('user_id', $userId)
                     ->first();
-
         if ($like) {
             $like->delete();
         } else {

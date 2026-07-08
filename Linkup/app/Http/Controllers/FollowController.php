@@ -22,7 +22,6 @@ class FollowController extends Controller
     } else {
         $me->followings()->attach($user->id);
     }
-
     return back();
 }
 }
