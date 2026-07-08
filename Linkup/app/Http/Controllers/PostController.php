@@ -52,7 +52,7 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('dashboard')->with('success', 'Deleted with success !');
     }
-    
+
     public function show(Post $post){
         return view('details',compact('post'));
     }
