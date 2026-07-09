@@ -6,33 +6,8 @@
     <div class="lg:col-span-2 space-y-4">
 
         <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm space-y-3">
-            @if(auth()->check())
-            <div class="bg-white rounded-2xl border border-gray-100 p-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
-                <div class="flex items-center gap-3">
-                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-600">
-                        <span class="text-lg">👋</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">Tableau de bord</span>
-                        <span class="text-gray-800 text-sm md:text-base">
-                            Hello, <strong class="font-semibold text-gray-900">{{ auth()->user()->name }}</strong>
-                        </span>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-2 bg-slate-50 border border-slate-100 px-4 py-2 rounded-xl w-full sm:w-auto justify-center sm:justify-start">
-                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                    </svg>
-                    <span class="text-xs md:text-sm text-gray-600 font-medium">
-                        Vous avez publié <strong class="text-blue-600 font-bold">{{ auth()->user()->posts->count() }}</strong> {{ auth()->user()->posts->count() > 1 ? 'posts' : 'post' }}
-                    </span>
-                </div>
-            </div>
-            @endif
             <div class="flex items-center gap-3">
                 <div class="relative inline-block">
-
                     @if(auth()->check())
                     <div class="flex items-center gap-3">
                         <div class="relative inline-block flex-shrink-0">
@@ -40,15 +15,6 @@
                                 alt="Avatar"
                                 class="w-10 h-10 rounded-full object-cover border border-gray-200">
                             <span class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-white"></span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="font-semibold text-gray-800 leading-tight">
-                                {{ auth()->user()->name }}
-                            </span>
-
-                            <span class="text-xs text-gray-500 leading-tight mt-0.5">
-                                {{ auth()->user()->headline ?? 'No headline available' }}
-                            </span>
                         </div>
                     </div>
                     @endif
@@ -112,18 +78,13 @@
                                 @php
                                 $isFollowing = auth()->user()->isFollowing($post->user->id);
                                 @endphp
-
                                 <button type="submit" class="text-xs font-bold cursor-pointer transition-colors {{ $isFollowing ? 'text-gray-400 hover:text-gray-600' : 'text-blue-600 hover:text-blue-800' }}">
                                     {{ $isFollowing ? 'Following' : 'Follow' }}
                                 </button>
                             </form>
                             @endif
                             @endauth
-
                             <span class="text-xs text-gray-300 font-bold">•</span>
-
-
-
                         </div>
                     </div>
                     <!-- policie -->
@@ -180,7 +141,6 @@
                     </div>
                 </div>
             </div>
-
             <p class="text-sm text-gray-700 break-words whitespace-pre-line">
                 {{ Str::limit($post->content, 150, '...') }}
                 @if(strlen($post->content) > 150)
@@ -189,7 +149,6 @@
                 </a>
                 @endif
             </p>
-
             <div class="text-xs font-semibold text-blue-600 space-x-1">
                 <span>#Laravel</span> <span>#WebDev</span> <span>#BuildInPublic</span>
             </div>

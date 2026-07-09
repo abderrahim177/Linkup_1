@@ -37,19 +37,16 @@ Route::get('/saved-posts', [SaveController::class, 'index'])->name('saved.index'
 Route::post('/user/{user}/follow', [FollowController::class, 'toggleFollow'])->name('user.follow');
     // profile user
 Route::get('/profile-user/{user}' , [ProfileUserController::class , 'profileUser'])->name('profile_user');
-
-
 });
 
 
 
 Route::middleware(['guest'])->group(function () {
-
 Route::get('/login' , function(){return view('auth.login');});
 Route::get('/register' , [AuthController::class , "register"])->name('register');
 Route::post('/register' , [AuthController::class , "save"])->name('save.user');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'check'])->name('check_user');
-
 });
+

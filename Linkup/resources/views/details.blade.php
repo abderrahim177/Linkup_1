@@ -38,8 +38,13 @@
                 </h1>
             @endif
 
-            <p class="text-gray-700 text-sm md:text-base leading-relaxed break-words whitespace-pre-line">
-                {{ $post->content }}
+            <p class="text-sm text-gray-700 break-words whitespace-pre-line">
+                {{ Str::limit($post->content, 150, '...') }}
+                @if(strlen($post->content) > 150)
+                <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 font-semibold hover:underline ml-1">
+                    Voir plus
+                </a>
+                @endif
             </p>
 
             @if(!empty($post->image))
@@ -68,11 +73,12 @@
                 </button>
             </div>
 
-            <a href="javascript:history.back()" class="flex items-center gap-1 text-gray-400 hover:text-gray-600 transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-                <span>Retour</span>
+            <a href="javascript:history.back()"
+                class="group inline-flex items-center gap-3 px-4 py-2 text-sm font-semibold text-gray-700 hover:text-indigo-600 transition-all duration-300 ease-in-out">
+
+                <!-- Icon Font Awesome m3a Micro-animation -->
+                <i class="fa-solid fa-angles-left text-base transform group-hover:-translate-x-1 transition-transform duration-300 ease-out"></i>
+                <span class="tracking-wide">Retour</span>
             </a>
         </div>
     </div>

@@ -1,8 +1,15 @@
 @extends('layouts.master')
 
 @section('content')
+
 <div class="max-w-2xl mx-auto space-y-4">
-    
+    <a href="javascript:history.back()"
+                class="group inline-flex items-center gap-3 px-4 py-2 text-sm font-semibold text-gray-700 hover:text-indigo-600 transition-all duration-300 ease-in-out">
+
+                <!-- Icon Font Awesome m3a Micro-animation -->
+                <i class="fa-solid fa-angles-left text-base transform group-hover:-translate-x-1 transition-transform duration-300 ease-out"></i>
+                <span class="tracking-wide">Retour</span>
+            </a>
     <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center gap-3">
         <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
             <i class="fa-solid fa-bookmark"></i>
@@ -32,9 +39,14 @@
             </div>
         </div>
 
-        <div class="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-            {{ $post->content }}
-        </div>
+        <p class="text-sm text-gray-700 break-words whitespace-pre-line">
+                {{ Str::limit($post->content, 150, '...') }}
+                @if(strlen($post->content) > 150)
+                <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 font-semibold hover:underline ml-1">
+                    Voir plus
+                </a>
+                @endif
+        </p>
 
         <div class="flex items-center justify-between border-t border-gray-100 pt-2 text-xs font-semibold text-gray-500">
             <form action="{{ route('posts.like', $post->id) }}" method="POST" class="flex-1">
